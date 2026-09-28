@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Para ti</title>
+
+    <style>
+
+        /* =====================================================
+           FUENTES
+        ===================================================== */
+
+        @font-face {
+            font-family: "Great Vibes";
+            src: url("fonts/GreatVibes-Regular.ttf") format("truetype");
+        }
+
+        @font-face {
+            font-family: "Viaoda Libre";
+            src: url("fonts/ViaodaLibre-Regular.ttf") format("truetype");
+        }
+
+        @font-face {
+            font-family: "Roboto";
+            src: url("fonts/Roboto-Regular.ttf") format("truetype");
+        }
+
+
+        /* =====================================================
+           COLORES
+        ===================================================== */
+
+        :root {
+            --vino: #8F3D4E;
+            --vino-oscuro: #5E2632;
+            --crema: #F3EBDD;
+            --crema-oscuro: #E5D8C4;
+            --blanco: #FFFFFF;
+            --negro: #111111;
+            --gris: #6E6863;
+            --borde: #D4C7B7;
+        }
+
+
+        /* =====================================================
+           CONFIGURACIÓN GENERAL
+        ===================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: var(--crema);
+            color: var(--negro);
+            font-family: "Roboto", sans-serif;
+            overflow-x: hidden;
+        }
+
+
+        /* =====================================================
+           BARRA SUPERIOR
+        ===================================================== */
+
+        .barra {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 64px;
+            background: var(--blanco);
+            border-bottom: 1px solid var(--borde);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: "Viaoda Libre", serif;
+            font-size: 20px;
+            color: var(--vino);
+        }
+
+        .contador {
+            font-size: 13px;
+            letter-spacing: 2px;
+            color: var(--gris);
+        }
+
+
+        /* =====================================================
+           BOTONES
+        ===================================================== */
+
+        button {
+            font-family: "Roboto", sans-serif;
+            border: none;
+            cursor: pointer;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .boton {
+            padding: 13px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            background: var(--vino);
+            color: var(--blanco);
+            box-shadow: 0 5px 0 var(--vino-oscuro);
+        }
+
+        .boton:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 9px 0 var(--vino-oscuro);
+        }
+
+        .boton:active {
+            transform: translateY(1px);
+            box-shadow: 0 3px 0 var(--vino-oscuro);
+        }
+
+        .boton-claro {
+            background: var(--crema);
+            color: var(--vino-oscuro);
+            border: 1px solid var(--borde);
+            box-shadow: 0 5px 0 var(--crema-oscuro);
+        }
+
+
+        /* =====================================================
+           SECCIONES
+        ===================================================== */
+
+        .pantalla {
+            min-height: 100vh;
+
+            padding:
+                120px
+                8vw
+                80px;
+
+            display: none;
+            position: relative;
+        }
+
+        .pantalla.activa {
+            display: flex;
+            animation:
+                aparecer 0.6s ease;
+        }
+
+        @keyframes aparecer {
+
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+
+        /* =====================================================
+           PANTALLA 1
+        ===================================================== */
+
+        #inicio {
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: var(--crema);
+        }
+
+        .inicio-contenido {
+            max-width: 800px;
+            position: relative;
+        }
+
+        .mini-etiqueta {
+            display: inline-block;
+
+            padding:
+                8px
+                14px;
+
+            background: var(--vino);
+            color: white;
+
+            border-radius: 5px;
+
+            font-size: 12px;
+            letter-spacing: 2px;
+
+            margin-bottom: 25px;
+
+            transform: rotate(-2deg);
+        }
+
+        .titulo {
+            font-family: "Viaoda Libre", serif;
+
+            font-size:
+                clamp(
+                    55px,
+                    9vw,
+                    110px
+                );
+
+            line-height: 0.95;
+            margin: 0;
+
+            color: var(--negro);
+        }
+
+        .titulo span {
+            color: var(--vino);
+        }
+
+        .frase {
+
+            margin:
+                35px auto;
+
+            max-width: 500px;
+
+            font-size: 18px;
+            line-height: 1.7;
+
+            color: var(--gris);
+        }
+
+
+        /* =====================================================
+           STICKER
+        ===================================================== */
+
+        .sticker {
+
+            position: absolute;
+
+            right: -80px;
+            top: -50px;
+
+            width: 150px;
+            height: 150px;
+
+            background: var(--vino);
+            color: var(--blanco);
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            font-family: "Great Vibes", cursive;
+            font-size: 24px;
+
+            transform: rotate(12deg);
+
+            box-shadow:
+                5px 6px 0 var(--vino-oscuro);
+
+            animation:
+                flotando 3s ease-in-out infinite;
+        }
+
+        @keyframes flotando {
+
+            0%, 100% {
+                transform:
+                    rotate(12deg)
+                    translateY(0);
+            }
+
+            50% {
+                transform:
+                    rotate(8deg)
+                    translateY(-8px);
+            }
+
+        }
+
+
+        /* =====================================================
+           PANTALLA 2 — CARTA
+        ===================================================== */
+
+        #carta {
+
+            background: var(--vino);
+            color: var(--blanco);
+
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carta {
+
+            max-width: 760px;
+
+            background: var(--crema);
+            color: var(--negro);
+
+            padding: 55px;
+
+            border-radius: 5px;
+
+            box-shadow:
+                12px 12px 0 var(--vino-oscuro);
+
+            transform: rotate(-1deg);
+
+            position: relative;
+        }
+
+        .carta::before {
+
+            content: "ദ്ദി◝ ⩊ ◜.ᐟ";
+            font-weight: 900;
+            position: absolute;
+
+            top: -18px;
+            left: 35px;
+
+            background: var(--blanco);
+            color: var(--vino);
+
+            padding:
+                8px
+                15px;
+
+            font-size: 14px;
+            letter-spacing: 3px;
+
+            transform: rotate(-3deg);
+        }
+
+        .carta-texto {
+
+            font-size: 18px;
+            line-height: 1.9;
+        }
+
+        .firma {
+
+            margin-top: 40px;
+
+            font-family:
+                "Great Vibes",
+                cursive;
+
+            font-size: 42px;
+
+            color: var(--vino);
+        }
+
+
+        /* =====================================================
+           PANTALLA 3 — PREGUNTA
+        ===================================================== */
+
+        #pregunta {
+
+            background: var(--negro);
+            color: var(--blanco);
+
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+        }
+
+        #pregunta h2 {
+            color: var(--blanco);
+        }
+
+        .pregunta-sub {
+
+            max-width: 550px;
+
+            color: #C9C4BF;
+
+            line-height: 1.7;
+
+            margin:
+                25px
+                0
+                40px;
+        }
+
+        .botones-finales {
+
+            display: flex;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+
+            justify-content: center;
+        }
+
+        .respuesta {
+
+            margin-top: 30px;
+
+            min-height: 30px;
+
+            font-family:
+                "Great Vibes",
+                cursive;
+
+            color: #E7B9C2;
+
+            font-size: 28px;
+        }
+
+
+        /* =====================================================
+           NAVEGACIÓN
+        ===================================================== */
+
+        .navegacion {
+
+            position: fixed;
+
+            bottom: 25px;
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+
+            display: flex;
+
+            gap: 8px;
+
+            z-index: 100;
+        }
+
+        .punto {
+
+            width: 9px;
+            height: 9px;
+
+            border-radius: 50%;
+
+            background: #CFC7BD;
+
+            transition:
+                all 0.25s ease;
+
+            cursor: pointer;
+        }
+
+        .punto.activo {
+
+            width: 28px;
+
+            border-radius: 10px;
+
+            background: var(--vino);
+        }
+
+
+        /* =====================================================
+           BOTÓN CONTINUAR
+        ===================================================== */
+
+        .continuar {
+            margin-top: 45px;
+        }
+
+
+        /* =====================================================
+           IMÁGENES INDEPENDIENTES
+        ===================================================== */
+
+        .gif-oviar {
+
+            position: fixed;
+
+            right: 75vw;
+            bottom: 40vh;
+
+            width:
+                clamp(
+                    210px,
+                    21vw,
+                    300px
+                );
+
+            height:
+                clamp(
+                    210px,
+                    21vw,
+                    300px
+                );
+
+            object-fit: contain;
+
+            border-radius: 14px;
+
+            transform: rotate(-5deg);
+
+            z-index: 20;
+        }
+
+        .imagen-sonrisa {
+
+            position: fixed;
+
+            right: 10vw;
+            bottom: 10vh;
+
+            width:
+                clamp(
+                    200px,
+                    21vw,
+                    290px
+                );
+
+            height:
+                clamp(
+                    200px,
+                    21vw,
+                    290px
+                );
+
+            object-fit: contain;
+
+            border-radius: 14px;
+
+            transform: rotate(4deg);
+
+            z-index: 20;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 700px) {
+
+            .barra {
+                padding: 0 18px;
+            }
+
+            .pantalla {
+
+                padding:
+                    100px
+                    22px
+                    80px;
+            }
+
+            .sticker {
+
+                right: -10px;
+                top: -80px;
+
+                width: 85px;
+                height: 85px;
+
+                font-size: 19px;
+            }
+
+            .carta {
+                padding: 35px 25px;
+            }
+
+            .titulo {
+                font-size: 65px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<audio id="musica" loop>
+    <source src="AiMP3/JLH.mp3" type="audio/mpeg">
+</audio>
+
+    <!-- =====================================================
+         BARRA
+    ====================================================== -->
+
+    <header class="barra">
+
+        <div class="logo">
+
+            01001010 01110101 01110011 01110100 00100000
+            01001100 01101001 01101011 01100101 00100000
+            01001000 01100101 01100001 01110110 01100101 01101110
+
+        </div>
+
+        <div class="contador" id="contador">
+
+            01 / 03
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         PANTALLA 1
+    ====================================================== -->
+
+    <section class="pantalla activa" id="inicio">
+
+        <div class="inicio-contenido">
+
+            <div class="mini-etiqueta">
+
+                Holaa
+
+            </div>
+
+            <h1 class="titulo">
+
+                Holaaaau <span></span>
+
+            </h1>
+
+            <p class="frase">
+
+                La verdad te queria decir esto desde que te encontre en ig,
+                pero pensé que hacerlo así sería
+                mas interesante y bonito
+
+            </p>
+
+            <button class="boton" onclick="iniciarMusica(); irA(2)">
+                jeje mira picale
+            </button>
+
+            <div class="sticker">
+
+                😭😭
+
+                <br>
+
+                no me dejes en flop en la primera paag
+
+            </div>
+
+        </div>
+
+
+        <div class="imagenes-inicio">
+
+            <img
+                src="Imágenes/Oviar.gif"
+                class="gif-oviar"
+                alt="GIF"
+            >
+
+            <img
+                src="Imágenes/Sonrisa.jpeg"
+                class="imagen-sonrisa"
+                alt="Sonrisa"
+            >
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         PANTALLA 2 — CARTA
+    ====================================================== -->
+
+    <section class="pantalla" id="carta">
+
+        <article class="carta">
+
+            <div class="numero">
+
+                Bueno pues
+
+            </div>
+
+            <div class="carta-texto">
+
+                <p>
+                
+Bueno pues no sé si te acuerdes pero nos conocimos una vez el 
+último día y he de decir que después de lo que pasó fue un poco 
+incómodo pero creo que ya lo superé. Pero no te superé a ti porque 
+la verdad me gustaste mucho, y desde entonces me quedé con la espinita
+ de saber quién eras y hace poco te encontré en Instagram y pues me animé
+  a mandarte mensaje y te ves súper muy buena onda. Yo sé que no nos conocemos,
+   nunca hemos hablado y pues realmente no sabemos quiénes somos, pero quiero que
+    sepas que la verdad me gustaste mucho y aunque sé que literal llevamos como
+     3 días hablando, me gustaría que lo siguieramos haciendo, pero tambien quiero 
+     que sepas que lo hago para seguir conociendo a la persona que me 
+     gusto. Solo que no sé 
+     qué tan cómodo y de acuerdo estés con eso </p>
+
+
+                </p>
+
+            </div>
+
+            <div class="firma">
+
+                :/
+
+            </div>
+
+        </article>
+
+
+        <button
+            class="boton continuar"
+            onclick="irA(3)"
+        >
+
+            Bueno... →
+
+        </button>
+
+    </section>
+
+
+    <!-- =====================================================
+         PANTALLA 3 — PREGUNTA
+    ====================================================== -->
+
+    <section class="pantalla" id="pregunta">
+
+        <div class="numero">
+
+            03 — ENTONCES...
+
+        </div>
+
+        <h1>
+
+            Me gustaría
+            seguir conociendonos
+            y que sepas que me interesas :)
+
+        </h1>
+
+        <p class="pregunta-sub">
+
+            Tu que piensas?
+
+        </p>
+
+
+        <div class="botones-finales">
+
+            
+        <button class="boton" onclick="respuesta('si'); cambiarMusica()">
+            
+        </button>
+
+        <button class="boton" onclick="cambiarMusica()">
+            Me gustaria seguir conociendonos :)
+        </button>
+
+            <button
+                class="boton boton-claro"
+                onclick="respuesta('hablar')"
+            >
+
+                No pienso tan igual :|
+
+            </button>
+
+        </div>
+
+
+        <div
+            class="respuesta"
+            id="respuesta"
+        ></div>
+
+    </section>
+
+
+    <!-- =====================================================
+         NAVEGACIÓN
+    ====================================================== -->
+
+    <div class="navegacion">
+
+        <div
+            class="punto activo"
+            onclick="irA(1)"
+        ></div>
+
+        <div
+            class="punto"
+            onclick="irA(2)"
+        ></div>
+
+        <div
+            class="punto"
+            onclick="irA(3)"
+        ></div>
+
+    </div>
+
+
+    <script>
+
+        let paginaActual = 1;
+
+
+        function irA(numero) {
+
+            document
+                .querySelectorAll(".pantalla")
+                .forEach(pantalla => {
+
+                    pantalla.classList.remove("activa");
+
+                });
+
+
+            const pantallas = [
+
+                "inicio",
+                "carta",
+                "pregunta"
+
+            ];
+
+
+            document
+                .getElementById(pantallas[numero - 1])
+                .classList.add("activa");
+
+
+            document
+                .querySelectorAll(".punto")
+                .forEach((punto, index) => {
+
+                    punto.classList.toggle(
+                        "activo",
+                        index === numero - 1
+                    );
+
+                });
+
+
+            document
+                .getElementById("contador")
+                .textContent =
+                `0${numero} / 03`;
+
+
+            paginaActual = numero;
+
+
+            window.scrollTo({
+
+                top: 0,
+
+                behavior: "smooth"
+
+            });
+
+        }
+
+        function iniciarMusica() {
+    const musica = document.getElementById("musica");
+
+    musica.src = "  AiMP3/JLH.mp3";
+    musica.volume = 0.5;
+    musica.loop = true;
+
+    musica.play();
+}
+
+function cambiarMusica() {
+    const musica = document.getElementById("musica");
+
+    musica.pause();
+
+    musica.src = "AiMP3/PPP.mp3";
+
+    musica.currentTime = 0;
+    musica.volume = 0.5;
+    musica.loop = true;
+
+    musica.play();
+}
+
+        function respuesta(tipo) {
+
+            const elemento =
+                document.getElementById("respuesta");
+
+
+            if (tipo === "si") {
+
+                elemento.textContent =
+                    "Ok salió muy bien. 😳😳";
+
+            }
+
+
+            if (tipo === "hablar") {
+
+                elemento.textContent =
+                    "Esta bien, me parece una respuesta valida. 😿";
+
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>

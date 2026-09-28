@@ -1,0 +1,80 @@
+
+@font-face {
+    font-family: "Great Vibes";
+    src: url("fonts/GreatVibes-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Viaoda Libre";
+    src: url("fonts/ViaodaLibre-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url("fonts/Roboto-Regular.ttf") format("truetype");
+}
+body {
+    font-family: "Roboto", sans-serif;
+}
+
+h1, h2 {
+    font-family: "Viaoda Libre", serif;
+}
+
+.romantic {
+    font-family: "Great Vibes", cursive;
+}
+.tarjeta {
+    background: #F3EBDD;
+    color: #111111;
+    border-radius: 18px;
+    padding: 30px;
+    transition: 
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.tarjeta:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.18);
+}
+/* =====================================================
+   IMÁGENES DE LA PÁGINA 1
+===================================================== */
+
+.imagenes-inicio {
+    position: absolute;
+    right: 100px;
+    bottom: 200px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    width: 150px;
+    height: 90px;
+
+    z-index: 20;
+}
+
+.imagenes-inicio img {
+    display: block;
+
+    object-fit: contain;
+
+    border-radius: 14px;
+
+    flex-shrink: 0;
+}
+
+.gif-oviar {
+    width: 60px;
+    height: 60px;
+    transform: rotate(-5deg);
+}
+
+.imagen-sonrisa {
+    width: 70px;
+    height: 70px;
+    transform: rotate(4deg);
+}
